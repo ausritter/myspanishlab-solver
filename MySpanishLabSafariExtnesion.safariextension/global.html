@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>My Spanish Lab Solver Global Page</title>
+
+	<!-- JAVASCRIPT -->
+	<script type="text/javascript">
+	var answers = null;
+	var submitted = false;
+
+	function respondToMessage(messageEvent) {
+		if (messageEvent.name == "getAnswers") {
+			// return the answers
+			messageEvent.target.page.dispatchMessage("gotAnswers", answers);
+		}
+		else if (messageEvent.name == "setAnswers") {
+			// set the answers
+			answers = messageEvent.message;
+		}
+		else if (messageEvent.name == "haveSubmitted") {
+			// we have submitted our answers at least once
+			submitted = messageEvent.message;
+		}
+		else if (messageEvent.name == "isSubmitted?") {
+			// return if we have submitted our answers at least once
+			messageEvent.target.page.dispatchMessage("isSubmittedVal", submitted);
+		}
+		else if (messageEvent.name == "getSettings") {
+			// return the current extension settings
+			settingsChanged(null);
+		}
+	}
+	
+	function settingsChanged(settingsEvent) {
+		// save the new settings and pass them back
+		var settings = { requirePromptToSubmit : safari.extension.settings["requirePromptToSubmit"] };
+		safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("settingsChanged", settings);
+	}
+	
+	// register for message callbacks from the application
+	safari.application.addEventListener("message", respondToMessage, false);
+	// register for settings changed events
+	safari.extension.settings.addEventListener("change", settingsChanged, false);
+	</script>
+
+
+</head>
+<body><!-- No content can go here --></body>
+</html>
