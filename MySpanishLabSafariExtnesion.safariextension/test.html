@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Test Page</title>
+	<link href='injected.css' type='text/css' rel='stylesheet'/>
+	<script type="text/javascript" src="jquery-1.5.1.min.js"></script>
+	<script type="text/javascript">
+	function showMessage(message) {
+		var domObj = document.createElement("p");
+		domObj.innerHTML = message + ". <a href='#'>Error!</a>";
+		domObj.onclick = function() { $(domObj).fadeOut(500); };
+		domObj.className = "basic solvermessage";
+		
+		document.body.insertBefore(domObj, document.body.firstChild);
+		$(domObj).hide().fadeIn(700);
+	
+		//$("body").append("<p class='message'>"+message+". <a href='#'>Error!</a>"+"</p>").hide().fadeIn(1200);
+	}
+	</script>
+	
+</head>
+<body>
+
+<button class="btn" onclick="showMessage('Thank you for your submission');">Solve</button>
+
+</body>
+</html>

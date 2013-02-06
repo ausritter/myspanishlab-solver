@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Spanish Lab Extension Bar</title>
+    
+    <!-- CSS -->
+    <style type="text/css" media="all">
+    body {
+   		padding: 1px 15px 0 15px;
+    	margin: 0;
+    }
+    .mainbar {
+    	position: relative;
+    	line-height: 26px;
+    	height: 26px;
+    }
+	.btn {
+		border-color: white;
+		border-width: 0;
+		border-style: solid;
+		border-bottom-width: 0px;
+		background-color: #7e7e7e;
+		display: inline-block;
+		text-decoration: none;
+		color: #fff;
+		-webkit-border-radius: 5px;
+		text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	}
+	.btn:hover, .btn:active {
+		background-color: #6b6b6b;
+	}
+	p {
+		margin: 0;
+		padding: 0;
+		display: inline-block;
+		line-height: 26px;
+	}
+	.header {
+		font-size: 120%;
+		margin-right: 16px;
+	}
+	.status {
+		float: right;
+		color: rgba(0,0,0,0.50);
+	}
+    </style>
+
+
+	<!-- JAVASCRIPT -->
+    <script type="text/javascript">
+	var answers = [];
+
+	function sendSubmit() {
+		document.getElementById("submitBtn").innerHTML ="Submiting...";
+		safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("submit");
+	}
+	function sendCopy() {
+		document.getElementById("copyBtn").innerHTML ="Copying...";
+		safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("copy");
+	}
+	function sendPaste() {
+		document.getElementById("pasteBtn").innerHTML ="Pasting...";
+		safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("paste", answers);
+	}
+	function respondToMessage(messageEvent) {
+		if (messageEvent.name == "submitted") {
+			document.getElementById("statusTxt").innerHTML = "Answers submitted";
+			document.getElementById("submitBtn").innerHTML = "Submit";
+		}
+		else if (messageEvent.name == "copied") {
+			document.getElementById("statusTxt").innerHTML = "Answers copied";
+			document.getElementById("copyBtn").innerHTML = "Copy Answers";
+			answers = messageEvent.message;
+		}
+		else if (messageEvent.name == "pasted") {
+			document.getElementById("statusTxt").innerHTML = "Answers pasted";
+			document.getElementById("pasteBtn").innerHTML = "Paste Answers";
+		}
+	}
+	safari.self.browserWindow.addEventListener("message", respondToMessage, false);
+    </script>
+</head>
+<body>
+<div class="mainbar">
+
+<p class="header">myspanishlab</p>
+
+<button class="btn" onclick="sendSubmit()" id="submitBtn"  title="Submit the form with bogus answers">Submit</button>
+<button class="btn" onclick="sendCopy()" id="copyBtn"  title="Copy the correct answers to the clipboard">Copy Answers</button>
+<button class="btn" onclick="sendPaste()" id="pasteBtn" title="Paste the correct answers from the clipboard">Paste Answers</button>
+
+<p class="status" id="statusTxt"></p>
+
+</div>
+</body>
+</html>
