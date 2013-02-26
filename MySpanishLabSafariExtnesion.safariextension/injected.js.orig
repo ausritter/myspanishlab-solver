@@ -60,7 +60,11 @@ function showError(errorMessage, excludePrefix) {
 	var domObj = document.createElement("p");
 	var displayText = "";
 	if (!excludePrefix) displayText += "ERROR: ";
+<<<<<<< HEAD
 	displayText += errorMessage + "<br /><a href='https://github.com/idolize/myspanishlab-solver/issues'>File a bug report?</a>";
+=======
+	displayText += errorMessage + "<br /><a href='mailto:david.idol+msl@gmail.com?subject=MSL Solver Bug: "+errorMessage+"'>File a bug report?</a>";
+>>>>>>> 1cf79bb07b1e0804f125ce565d14092c36a652ba
 	domObj.innerHTML = displayText;
 	domObj.className = "solverMessage errorType";
 	
@@ -315,6 +319,8 @@ function pasteAnswers(answers) {
 				var ans = answers[ansNum];
 				var subAnswers = ans.subAnswers;
 				
+<<<<<<< HEAD
+=======
 				/*
 				// Log the question type information
 				
@@ -328,6 +334,7 @@ function pasteAnswers(answers) {
 				*/
 				
 				
+>>>>>>> 1cf79bb07b1e0804f125ce565d14092c36a652ba
 				// MULTIPLE_CHOICE
 				if (type === QuestionType.MULTIPLE_CHOICE && ans.questionType === QuestionType.MULTIPLE_CHOICE) {
 					// go through every subanswer
