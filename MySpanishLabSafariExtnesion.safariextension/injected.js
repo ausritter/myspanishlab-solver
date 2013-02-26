@@ -315,6 +315,19 @@ function pasteAnswers(answers) {
 				var ans = answers[ansNum];
 				var subAnswers = ans.subAnswers;
 				
+				/*
+				// Log the question type information
+				
+				console.log("type found from 'questiontype' attribute:");
+				console.log(type);
+				
+				console.log("ans.questionType:")
+				console.log(ans.questionType);
+				
+				console.log("are they the same? " + (type == ans.questionType));
+				*/
+				
+				
 				// MULTIPLE_CHOICE
 				if (type === QuestionType.MULTIPLE_CHOICE && ans.questionType === QuestionType.MULTIPLE_CHOICE) {
 					// go through every subanswer
